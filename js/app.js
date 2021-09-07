@@ -91,14 +91,13 @@ function generateModalCard(profile){
                 modalContainer.remove();
             });
 
+        // Variables for modal toggling    
         const modalButt = document.querySelector('.modal-btn-container'); 
         const prevButt = document.querySelector('#modal-prev');
         const nextButt = document.querySelector('#modal-next')    
         const profiles = document.querySelectorAll('.card');
-        //const profileArray = [...profiles];
-        //console.log(profileArray);
-        //console.log(prevButt);
-
+       
+        // Modal toggling listener    
         modalButt.addEventListener('click', (e) => {
 
             if (e.target === nextButt && index < profiles.length -1 ){
