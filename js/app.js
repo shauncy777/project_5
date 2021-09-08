@@ -1,14 +1,14 @@
 
-let index = 0;
+
+
+let currentEmployee;
 let profileData;
 const profileContainer = document.getElementById('gallery');
 const searchDiv = document.querySelector('.search-container');
 const body = document.querySelector('body');
 
-
             
 body.style.backgroundColor="gray";
-
 
 
 // Insert search bar
@@ -49,13 +49,19 @@ function generateGalleryHTML(data) {
 
 
 // Listens for click on profile card to show detailed modal profile card
-function eachModal (data){
+function eachModal (data){ 
     const cardDiv = document.getElementsByClassName('card');
         for(let i = 0; i < data.length; i++){
-            cardDiv[i].addEventListener('click', () => {        
-                generateModalCard(data[i]);   
+            
+            cardDiv[i].addEventListener('click', (e) => {  
+                currentEmployee = data.indexOf(data[i]);
+                console.log(currentEmployee);
+                generateModalCard(data[currentEmployee]);  
+                
         });
+        
     }
+   
 }
 
 // Dynamic markup for modal cards
@@ -89,6 +95,7 @@ function generateModalCard(profile){
             // Listens for click on profile card to close 
             modalClose.addEventListener('click',() => {
                 modalContainer.remove();
+               
             });
 
         // Variables for modal toggling    
@@ -100,17 +107,17 @@ function generateModalCard(profile){
         // Modal toggling listener    
         modalButt.addEventListener('click', (e) => {
 
-            if (e.target === nextButt && index < profiles.length -1 ){
-                index ++;
-            } else if (e.target === nextButt && index == profiles.length -1){
-                index = 0;
-            } else if (e.target === prevButt && index > 0){
-                index --;
-            } else if (e.target === prevButt && index == 0){
-                index = profiles.length -1;
+            if (e.target === nextButt && currentEmployee < profiles.length -1 ){
+                currentEmployee ++;
+            } else if (e.target === nextButt && currentEmployee == profiles.length -1){
+                currentEmployee = 0;
+            } else if (e.target === prevButt && currentEmployee > 0){
+                currentEmployee --;
+            } else if (e.target === prevButt && currentEmployee == 0){
+                currentEmployee = profiles.length -1;
             }
                 profileContainer.removeChild(modalContainer);
-                generateModalCard(profileData[index]); 
+                generateModalCard(profileData[currentEmployee]); 
             
         });
 
@@ -130,4 +137,3 @@ searchDiv.addEventListener('keyup',(e) => {
             }
         }        
 });
-
